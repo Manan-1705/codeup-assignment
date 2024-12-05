@@ -2,6 +2,7 @@
 Name : Manan Agrawal
 Date of Completion : 04 December 2024*/
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class stringOperation {
@@ -36,7 +37,7 @@ public class stringOperation {
     }
 
     //This function replace all occurances of character a with character b in the input string
-    public static String replace(String input , String first , String second){//variable
+    public static String replace(String input , String first , String second){
         String answer = "" ;
         boolean check = true ;
         for(int start = 0 ; start < input.length() ; start++){
@@ -51,11 +52,17 @@ public class stringOperation {
                         index++;
                         initial++;
                     }
+                    else{
+                        break ;
+                    }
                 }
                 if(compare(dummy , first)){
                     answer += second ;
                     start +=  first.length()-1  ;
                     check = false ;
+                }
+                else {
+                    answer += input.charAt(start);
                 }
             }
             else{
@@ -100,7 +107,6 @@ public class stringOperation {
         for(int iterate = 0 ; iterate < pattern.length() ; iterate++){
             dummy[iterate] = "" ;
         }
-
         for(int start=0 ; start<pattern.length() ; start++){
 
             if(pattern.charAt(start) != ' '){
@@ -125,7 +131,6 @@ public class stringOperation {
 //    This function finds and returns the character that appears the most frequent in input string
     public static void maxRepeat(String input){
         int maximum = 1 ;
-
         for(int start = 0; start< input.length() ; start++){
             int count = 1 ;
             for(int ahead = start+1; ahead < input.length() ; ahead++) {
@@ -167,16 +172,16 @@ public class stringOperation {
 
     }
 
-//    this function 
-    public static String sort(String string){
-        char []character = new char[string.length()] ;
-        for(int start = 0 ; start<string.length() ; start++){
-            character[start] = string.charAt(start) ;
+//    this function sort a given string in ascending order
+    public static String sort(String input){
+        char []character = new char[input.length()] ;
+        for(int start = 0; start< input.length() ; start++){
+            character[start] = input.charAt(start) ;
         }
 
-        for(int start = 0 ; start < string.length()-1 ; start++){
+        for(int start = 0; start < input.length()-1 ; start++){
             int smallestIndex = start ;
-            for(int initial = start+1 ; initial < string.length() ; initial++){
+            for(int initial = start+1; initial < input.length() ; initial++){
                 if(character[initial] < character[smallestIndex]){
                     smallestIndex = initial ;
                 }
@@ -185,135 +190,142 @@ public class stringOperation {
             character[smallestIndex] = character[start] ;
             character[start] = temporary ;
         }
-        String newString ="" ;
-        for(int i=0 ; i<string.length() ; i++){
-            newString += character[i] ;
+        String dummy ="" ;
+        for(int i = 0; i< input.length() ; i++){
+            dummy += character[i] ;
         }
-        return newString ;
+        return dummy ;
     }
 
-    public static String shift(String string , int n){
-        String newString = "" ;
-        for(int start = n ; start < string.length() ; start++){
-            newString += string.charAt(start) ;
+//    This function moves first n characters from start to end of the string
+    public static String shift(String input, int index){
+        String dummy = "" ;
+        for(int start = index; start < input.length() ; start++){
+            dummy += input.charAt(start) ;
         }
-        for(int start = 0 ; start < n ; start++){
-            newString += string.charAt(start) ;
+        for(int start = 0; start < index; start++){
+            dummy += input.charAt(start) ;
         }
-        return newString ;
+        return dummy;
     }
 
-    public static String reverse(String string){
-        String newString = "" ;
-        for(int start = string.length()-1 ; start>=0 ; start--){
-            newString += string.charAt(start) ;
+//    This function reverses a given string
+    public static String reverse(String input){
+        String dummy = "" ;
+        for(int start = input.length()-1; start>=0 ; start--){
+            dummy += input.charAt(start) ;
         }
-        return newString ;
+        return dummy;
     }
 
     public static void main(String[] args){
-        int choice = 0;
-        System.out.print("Enter the string : ") ;
-        Scanner scanner = new Scanner(System.in) ;
-        String string = scanner.nextLine() ;
-        do {
+        try {
+            int choice = 0;
+            System.out.print("Enter the string : ");
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine();
+            do {
 
-            System.out.print("Following are the operations on string : \n");
-            System.out.print("1.Append String\n");
-            System.out.print("2.Count Words\n");
-            System.out.print("3.Replace\n");
-            System.out.print("4.Check Palindrome\n");
-            System.out.print("5.Splice\n");
-            System.out.print("6.Split\n");
-            System.out.print("7.Max Repeating Character\n");
-            System.out.print("8.Sort\n");
-            System.out.print("9.Shift\n");
-            System.out.print("10.Reverse\n");
-            System.out.print("11.Exit\n");
-            System.out.print("Enter your choice : ");
-            choice = scanner.nextInt();
-            switch(choice){
-                case 1 :
-                    System.out.print("Enter string to be appended : ") ;
-                    Scanner m = new Scanner(System.in) ;
-                    String new_string = m.nextLine() ;
-                    System.out.print(append(string,new_string)+"\n") ;
-                    break ;
+                System.out.print("Following are the operations on string : \n");
+                System.out.print("1.Append String\n");
+                System.out.print("2.Count Words\n");
+                System.out.print("3.Replace\n");
+                System.out.print("4.Check Palindrome\n");
+                System.out.print("5.Splice\n");
+                System.out.print("6.Split\n");
+                System.out.print("7.Max Repeating Character\n");
+                System.out.print("8.Sort\n");
+                System.out.print("9.Shift\n");
+                System.out.print("10.Reverse\n");
+                System.out.print("11.Exit\n");
+                System.out.print("Enter your choice : ");
+                choice = scanner.nextInt();
+                switch (choice) {
+                    case 1:
+                        System.out.print("Enter string to be appended : ");
+                        Scanner m = new Scanner(System.in);
+                        String dummy = m.nextLine();
+                        System.out.print(append(input, dummy) + "\n");
+                        break;
 
-                case 2 :
-                    System.out.print("No. of words in the given string is : "+count_Words(string)+"\n") ;
-                    break ;
+                    case 2:
+                        System.out.print("No. of words in the given string is : " + count_Words(input) + "\n");
+                        break;
 
-                case 3 :
-                    System.out.print("Enter first string : ") ;
-                    Scanner newScan = new Scanner(System.in) ;
-                    String a = newScan.nextLine() ;
-                    System.out.print("Enter second string : ") ;
-                    String b = newScan.nextLine() ;
-                    System.out.print(replace(string,a,b) + "\n");
-                    break ;
+                    case 3:
+                        System.out.print("Enter first string : ");
+                        Scanner newScan = new Scanner(System.in);
+                        String a = newScan.nextLine();
+                        System.out.print("Enter second string : ");
+                        String b = newScan.nextLine();
+                        System.out.print(replace(input, a, b) + "\n");
+                        break;
 
-                case 4 :
-                    System.out.print(isPalindrome(string) + "\n") ;
-                    break ;
+                    case 4:
+                        System.out.print(isPalindrome(input) + "\n");
+                        break;
 
-                case 5 :
-                    System.out.print("Enter the starting index : ");
-                    int start = scanner.nextInt() ;
-                    System.out.print("Enter the length of the string : ") ;
-                    int length = scanner.nextInt() ;
-                    System.out.print(splice(string , start , length)+"\n") ;
-                    break ;
+                    case 5:
 
-                case 6 :
-                    split(string) ;
-                    System.out.print("\n") ;
-                    break ;
+                        System.out.print("Enter the starting index : ");
+                        int start = scanner.nextInt();
+                        System.out.print("Enter the length of the string : ");
+                        int length = scanner.nextInt();
+                        System.out.print(splice(input, start, length) + "\n");
+                        break;
 
-                case 7 :
-                    maxRepeat(string) ;
-                    System.out.print("\n") ;
-                    break ;
 
-                case 8 :
-                    System.out.print("Sorted string : "+sort(string)+"\n") ;
-                    break ;
+                    case 6:
+                        split(input);
+                        System.out.print("\n");
+                        break;
 
-                case 9 :
-                    System.out.print("Enter the number of characters to be moved in end of string : ") ;
-                    int number = scanner.nextInt() ;
-                    System.out.print(shift(string , number) + "\n") ;
-                    break ;
+                    case 7:
+                        maxRepeat(input);
+                        System.out.print("\n");
+                        break;
 
-                case 10 :
-                    System.out.print("Reverse order of the string : "+reverse(string)+"\n") ;
-                    break ;
+                    case 8:
+                        System.out.print("Sorted string : " + sort(input) + "\n");
+                        break;
 
-                case 11 :
-                    System.out.print("Program is terminated") ;
-                    break ;
+                    case 9:
+                        System.out.print("Enter the number of characters to be moved in end of string : ");
+                        int number = scanner.nextInt();
+                        System.out.print(shift(input, number) + "\n");
+                        break;
 
-                default :
-                    System.out.print("Enter the valid choice\n");
-            }
+                    case 10:
+                        System.out.print("Reverse order of the string : " + reverse(input) + "\n");
+                        break;
 
-            if (choice != 11) {
-                System.out.print("Do you want to continue(1 or 0) : ") ;
-                int choose = scanner.nextInt() ;
-                if (choose == 1){
-                   continue ;
-                }
-                if(choose == 0 ) {
-                    System.out.print("Program is terminated") ;
-                    break ;
-                }
-                else {
-                    System.out.print("Enter a valid choice\n");
-                    continue;
+                    case 11:
+                        System.out.print("Program is terminated");
+                        break;
+
+                    default:
+                        System.out.print("Enter the valid choice\n");
                 }
 
-            }
-        }while(choice!=11);
+                if (choice != 11) {
+                    System.out.print("Do you want to continue(1 or 0) : ");
+                    int choose = scanner.nextInt();
+                    if (choose == 1) {
+                        continue;
+                    }
+                    if (choose == 0) {
+                        System.out.print("Program is terminated");
+                        break;
+                    } else {
+                        System.out.print("Enter a valid choice\n");
+                        continue;
+                    }
 
+                }
+            } while (choice != 11);
+        }
+        catch(Exception e) {
+            System.out.print("Invalid input ! Please enter a valid integer number of string length") ;
+        }
     }
 }
